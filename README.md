@@ -1,4 +1,4 @@
-# Luke's dmenu
+# My dmenu
 
 Extra stuff added to vanilla dmenu:
 
@@ -8,6 +8,7 @@ Extra stuff added to vanilla dmenu:
 - `-P` for password mode: hide user input
 - `-r` to reject non-matching input
 - dmenu options are mouse clickable
+- Added scroll patch, so that long options, typically urls are not cut off.
 
 ## Installation
 
