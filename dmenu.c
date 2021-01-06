@@ -178,10 +178,11 @@ drawitem(struct item *item, int x, int y, int w)
 static void
 drawmenu(void)
 {
-	unsigned int curpos;
+	static int curpos, oldcurlen;
 	struct item *item;
+	int curlen, rcurlen;
 	int x = 0, y = 0, w;
- char *censort;
+  char *censort;
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	drw_rect(drw, 0, 0, mw, mh, 1, 1);
@@ -192,6 +193,16 @@ drawmenu(void)
 	}
 	/* draw input field */
 	w = (lines > 0 || !matches) ? mw - x : inputw;
+	w -= lrpad / 2;
+	x += lrpad / 2;
+	rcurlen = drw_fontset_getwidth(drw, text + cursor);
+	curlen = drw_fontset_getwidth(drw, text) - rcurlen;
+	curpos += curlen - oldcurlen;
+	curpos = MIN(w, MAX(0, curpos));
+	curpos = MAX(curpos, w - rcurlen);
+	curpos = MIN(curpos, curlen);
+	oldcurlen = curlen;
+	
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	if (passwd) {
 	        censort = ecalloc(1, sizeof(text));
@@ -200,11 +211,6 @@ drawmenu(void)
 		free(censort);
 	} else drw_text(drw, x, 0, w, bh, lrpad / 2, text, 0);
 
-	curpos = TEXTW(text) - TEXTW(&text[cursor]);
-	if ((curpos += lrpad / 2 - 1) < w) {
-		drw_setscheme(drw, scheme[SchemeNorm]);
-		drw_rect(drw, x + curpos, 2, 2, bh - 4, 1, 0);
-	}
 
 	if (lines > 0) {
 		/* draw vertical list */
