@@ -9,6 +9,7 @@ Extra stuff added to vanilla dmenu:
 - `-r` to reject non-matching input
 - dmenu options are mouse clickable
 - Added scroll patch, so that long options, typically urls are not cut off.
+- Added highlight patch
 
 ## Installation
 
