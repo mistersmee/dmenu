@@ -1,8 +1,8 @@
-# Maintainer:
+# Maintainer: Aseem Athale <athaleaseem@gmail.com>
 
 pkgname=dmenu-aseem
 _pkgname=dmenu
-pkgver=5.0.r578.a22e2b0
+pkgver=5.0.r36.391fb43
 pkgrel=1
 epoch=1
 pkgdesc="My build of dmenu."
@@ -13,7 +13,6 @@ depends=('make')
 makedepends=('git')
 source=('git://github.com/mistersmee/dmenu')
 sha1sums=('SKIP')
-
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 
