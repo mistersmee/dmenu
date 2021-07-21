@@ -35,5 +35,5 @@ package() {
 	cd "${_pkgname}"
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 	install -Dm44 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install -Dm44 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+	install -Dm44 README "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
