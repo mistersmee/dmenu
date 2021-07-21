@@ -1,3 +1,10 @@
+# My build of dmenu
+
+This is my build of dmenu, with the following patches added:
+ - dmenu-highlight-20201211-fcdc159.diff
+ - dmenu-scroll-20180607-a314412.diff
+ - dmenu-xresources-alt-5.0.diff
+
 dmenu - dynamic menu
 ====================
 dmenu is an efficient dynamic menu for X.
