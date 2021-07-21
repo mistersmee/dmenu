@@ -5,6 +5,9 @@ This is my build of dmenu, with the following patches added:
  - dmenu-scroll-20180607-a314412.diff
  - dmenu-xresources-alt-5.0.diff
 
+Also added is emoji support. Use `libxft-bgra-git` from the AUR, until
+the pull request in question is merged, otherwise dmenu will crash.
+
 dmenu - dynamic menu
 ====================
 dmenu is an efficient dynamic menu for X.
