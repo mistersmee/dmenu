@@ -2,7 +2,7 @@
 
 pkgname=dmenu-aseem
 _pkgname=dmenu
-pkgver=5.0.r619.64234a9
+pkgver=5.1.r639.97a6b33
 pkgrel=1
 epoch=1
 pkgdesc="My build of dmenu."
@@ -11,7 +11,7 @@ arch=(any)
 license=('GPL')
 depends=('fontconfig' 'libxinerama' 'libxft-bgra-git')
 makedepends=('git')
-source=('git://github.com/mistersmee/dmenu')
+source=('git+https://github.com/mistersmee/dmenu')
 sha1sums=('SKIP')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
