@@ -21,10 +21,10 @@
 #include "util.h"
 
 /* macros */
-#define INTERSECT(x,y,w,h,r)  (MAX(0, MIN((x)+(w),(r).x_org+(r).width)  - MAX((x),(r).x_org)) \
-                             && MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
-#define LENGTH(X)             (sizeof X / sizeof X[0])
-#define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
+#define INTERSECT(x,y,w,h,r)  (MAX(0, MIN((x)+(w),(r).x_org+(r).width)	- MAX((x),(r).x_org)) \
+			     && MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
+#define LENGTH(X)	      (sizeof X / sizeof X[0])
+#define TEXTW(X)	      (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
 enum { SchemeNorm, SchemeSel, SchemeOut, SchemeLast }; /* color schemes */
@@ -127,7 +127,7 @@ cistrstr(const char *h, const char *n)
 
 	for (; *h; ++h) {
 		for (i = 0; n[i] && tolower((unsigned char)n[i]) ==
-		            tolower((unsigned char)h[i]); ++i)
+			    tolower((unsigned char)h[i]); ++i)
 			;
 		if (n[i] == '\0')
 			return (char *)h;
@@ -225,7 +225,7 @@ grabfocus(void)
 static void
 grabkeyboard(void)
 {
-	struct timespec ts = { .tv_sec = 0, .tv_nsec = 1000000  };
+	struct timespec ts = { .tv_sec = 0, .tv_nsec = 1000000	};
 	int i;
 
 	if (embed)
@@ -233,7 +233,7 @@ grabkeyboard(void)
 	/* try to grab keyboard, we may have to wait for another process to ungrab */
 	for (i = 0; i < 1000; i++) {
 		if (XGrabKeyboard(dpy, DefaultRootWindow(dpy), True, GrabModeAsync,
-		                  GrabModeAsync, CurrentTime) == GrabSuccess)
+				  GrabModeAsync, CurrentTime) == GrabSuccess)
 			return;
 		nanosleep(&ts, NULL);
 	}
@@ -355,21 +355,21 @@ keypress(XKeyEvent *ev)
 
 	if (ev->state & ControlMask) {
 		switch(ksym) {
-		case XK_a: ksym = XK_Home;      break;
-		case XK_b: ksym = XK_Left;      break;
-		case XK_c: ksym = XK_Escape;    break;
-		case XK_d: ksym = XK_Delete;    break;
-		case XK_e: ksym = XK_End;       break;
-		case XK_f: ksym = XK_Right;     break;
-		case XK_g: ksym = XK_Escape;    break;
+		case XK_a: ksym = XK_Home;	break;
+		case XK_b: ksym = XK_Left;	break;
+		case XK_c: ksym = XK_Escape;	break;
+		case XK_d: ksym = XK_Delete;	break;
+		case XK_e: ksym = XK_End;	break;
+		case XK_f: ksym = XK_Right;	break;
+		case XK_g: ksym = XK_Escape;	break;
 		case XK_h: ksym = XK_BackSpace; break;
-		case XK_i: ksym = XK_Tab;       break;
+		case XK_i: ksym = XK_Tab;	break;
 		case XK_j: /* fallthrough */
 		case XK_J: /* fallthrough */
 		case XK_m: /* fallthrough */
 		case XK_M: ksym = XK_Return; ev->state &= ~ControlMask; break;
-		case XK_n: ksym = XK_Down;      break;
-		case XK_p: ksym = XK_Up;        break;
+		case XK_n: ksym = XK_Down;	break;
+		case XK_p: ksym = XK_Up;	break;
 
 		case XK_k: /* delete right */
 			text[cursor] = '\0';
@@ -387,7 +387,7 @@ keypress(XKeyEvent *ev)
 		case XK_y: /* paste selection */
 		case XK_Y:
 			XConvertSelection(dpy, (ev->state & ShiftMask) ? clip : XA_PRIMARY,
-			                  utf8, utf8, win, CurrentTime);
+					  utf8, utf8, win, CurrentTime);
 			return;
 		case XK_Left:
 		case XK_KP_Left:
@@ -563,7 +563,7 @@ buttonpress(XEvent *e)
 
 	/* left-click on input: clear input,
 	 * NOTE: if there is no left-arrow the space for < is reserved so
-	 *       add that to the input width */
+	 *	 add that to the input width */
 	if (ev->button == Button1 &&
 	   ((lines <= 0 && ev->x >= 0 && ev->x <= x + w +
 	   ((!prev || !curr->left) ? TEXTW("<") : 0)) ||
@@ -575,7 +575,7 @@ buttonpress(XEvent *e)
 	/* middle-mouse click: paste selection */
 	if (ev->button == Button2) {
 		XConvertSelection(dpy, (ev->state & ShiftMask) ? clip : XA_PRIMARY,
-		                  utf8, utf8, win, CurrentTime);
+				  utf8, utf8, win, CurrentTime);
 		drawmenu();
 		return;
 	}
@@ -664,7 +664,7 @@ paste(void)
 
 	/* we have been given the current selection, now insert it into input */
 	if (XGetWindowProperty(dpy, win, utf8, 0, (sizeof text / 4) + 1, False,
-	                   utf8, &da, &di, &dl, &dl, (unsigned char **)&p)
+			   utf8, &da, &di, &dl, &dl, (unsigned char **)&p)
 	    == Success && p) {
 		insert(p, (q = strchr(p, '\n')) ? q - p : (ssize_t)strlen(p));
 		XFree(p);
@@ -814,10 +814,10 @@ setup(void)
 	swa.override_redirect = True;
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask |
-	                 ButtonPressMask;
+			 ButtonPressMask;
 	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
-	                    CopyFromParent, CopyFromParent, CopyFromParent,
-	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+			    CopyFromParent, CopyFromParent, CopyFromParent,
+			    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
 	XSetClassHint(dpy, win, &ch);
 
 
@@ -826,7 +826,7 @@ setup(void)
 		die("XOpenIM failed: could not open input device");
 
 	xic = XCreateIC(xim, XNInputStyle, XIMPreeditNothing | XIMStatusNothing,
-	                XNClientWindow, win, XNFocusWindow, win, NULL);
+			XNClientWindow, win, XNFocusWindow, win, NULL);
 
 	XMapRaised(dpy, win);
 	if (embed) {
@@ -846,7 +846,7 @@ static void
 usage(void)
 {
 	die("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
-	    "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]");
+	    "		  [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]");
 }
 
 void
@@ -892,7 +892,7 @@ main(int argc, char *argv[])
 
 	for (i = 1; i < argc; i++)
 		/* these options take no arguments */
-		if (!strcmp(argv[i], "-v")) {      /* prints version information */
+		if (!strcmp(argv[i], "-v")) {	   /* prints version information */
 			puts("dmenu-"VERSION);
 			exit(0);
 		} else if (!strcmp(argv[i], "-b")) /* appears at the bottom of the screen */

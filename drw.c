@@ -13,7 +13,7 @@
 
 static const unsigned char utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0};
 static const unsigned char utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
-static const long utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
+static const long utfmin[UTF_SIZ + 1] = {	0,    0,  0x80,  0x800,  0x10000};
 static const long utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
 
 static long
@@ -187,8 +187,8 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
 		return;
 
 	if (!XftColorAllocName(drw->dpy, DefaultVisual(drw->dpy, drw->screen),
-	                       DefaultColormap(drw->dpy, drw->screen),
-	                       clrname, dest))
+			       DefaultColormap(drw->dpy, drw->screen),
+			       clrname, dest))
 		die("error, cannot allocate color '%s'", clrname);
 }
 
@@ -264,8 +264,8 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
 		XSetForeground(drw->dpy, drw->gc, drw->scheme[invert ? ColFg : ColBg].pixel);
 		XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
 		d = XftDrawCreate(drw->dpy, drw->drawable,
-		                  DefaultVisual(drw->dpy, drw->screen),
-		                  DefaultColormap(drw->dpy, drw->screen));
+				  DefaultVisual(drw->dpy, drw->screen),
+				  DefaultColormap(drw->dpy, drw->screen));
 		x += lpad;
 		w -= lpad;
 	}
@@ -320,7 +320,7 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, unsigned int lp
 			if (render) {
 				ty = y + (h - usedfont->h) / 2 + usedfont->xfont->ascent;
 				XftDrawStringUtf8(d, &drw->scheme[invert ? ColBg : ColFg],
-				                  usedfont->xfont, x, ty, (XftChar8 *)utf8str, utf8strlen);
+						  usedfont->xfont, x, ty, (XftChar8 *)utf8str, utf8strlen);
 			}
 			x += ew;
 			w -= ew;
@@ -423,8 +423,8 @@ drw_text_align(Drw *drw, int x, int y, unsigned int w, unsigned int h, const cha
 		XSetForeground(drw->dpy, drw->gc, drw->scheme[ColBg].pixel);
 		XFillRectangle(drw->dpy, drw->drawable, drw->gc, x, y, w, h);
 		d = XftDrawCreate(drw->dpy, drw->drawable,
-		                  DefaultVisual(drw->dpy, drw->screen),
-		                  DefaultColormap(drw->dpy, drw->screen));
+				  DefaultVisual(drw->dpy, drw->screen),
+				  DefaultColormap(drw->dpy, drw->screen));
 	}
 
 	usedfont = drw->fonts;
@@ -496,7 +496,7 @@ drw_text_align(Drw *drw, int x, int y, unsigned int w, unsigned int h, const cha
 				if (render) {
 					ty = y + (h - usedfont->h) / 2 + usedfont->xfont->ascent;
 					XftDrawStringUtf8(d, &drw->scheme[ColFg],
-					                  usedfont->xfont, align == AlignL ? x : x - ew, ty, (XftChar8 *)utf8str, len);
+							  usedfont->xfont, align == AlignL ? x : x - ew, ty, (XftChar8 *)utf8str, len);
 				}
 				x += align == AlignL ? ew : -ew;
 				w -= ew;
